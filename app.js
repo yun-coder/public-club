@@ -237,3 +237,27 @@ for (const eventName of ["dragleave", "drop"]) {
   });
 }
 dropzone.addEventListener("drop", (event) => readFile(event.dataTransfer.files[0]));
+
+// Tagline heading: fade + rise once, when it scrolls into view.
+// Without JS or with reduced motion the heading stays visible by default.
+(() => {
+  const targets = document.querySelectorAll(".tagline-reveal");
+  if (!targets.length) return;
+  if (!("IntersectionObserver" in window)) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  targets.forEach((target) => target.classList.add("is-reveal-ready"));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("is-revealed");
+        observer.unobserve(entry.target);
+      }
+    },
+    { threshold: 0.3, rootMargin: "0px 0px -12% 0px" }
+  );
+
+  targets.forEach((target) => observer.observe(target));
+})();
