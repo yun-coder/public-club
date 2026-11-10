@@ -9,3 +9,8 @@ Open `index.html` in a browser. Drop a CSV file with latitude and longitude colu
 ## Deploy
 
 This is a static site. Cloudflare Pages can serve the repository root directly; no build command is required.
+
+## History
+
+`legacy/index-20261029.html` is the older landing page snapshot (same `app.js` and `styles.css`, without the "LESS CLEANUP. MORE CLARITY." tagline section that `index.html` now has). Merged in from the former `05_应用项目/geosuite-site` folder on 2026-11-10.
+

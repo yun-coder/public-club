@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7f4" />
+    <meta
+      name="description"
+      content="Convert latitude and longitude CSV files to GeoJSON in your browser. Your location data stays on your device."
+    />
+    <title>GeoSuite — Make location data useful</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="GeoSuite home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 3.5 27 9.75v12.5L16 28.5 5 22.25V9.75L16 3.5Z" stroke="currentColor" stroke-width="1.6" />
+            <path d="m5.5 10 10.5 6 10.5-6M16 16v12" stroke="currentColor" stroke-width="1.6" />
+            <circle cx="16" cy="16" r="2.4" fill="currentColor" />
+          </svg>
+        </span>
+        <span class="brand-name">geo<span>suite</span></span>
+      </a>
+      <nav class="topnav" aria-label="Main navigation">
+        <a href="#tools">Tools</a>
+        <a href="#how-it-works">How it works</a>
+      </nav>
+      <a class="nav-cta" href="#converter">Open converter <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero shell">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> A simpler way to work with location data</div>
+          <h1>Make your location data <span>useful.</span></h1>
+          <p class="hero-lede">Small, thoughtful tools for people who work with places. Start by turning a spreadsheet of coordinates into GeoJSON — right in your browser.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#converter">Try the CSV converter <span aria-hidden="true">↓</span></a>
+            <span class="no-account"><span class="check-icon">✓</span> Free to use. No account needed.</span>
+          </div>
+          <div class="hero-proof">
+            <span class="proof-icon" aria-hidden="true">⌁</span>
+            <span><strong>Your files stay yours.</strong> Processing happens locally in your browser.</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Abstract map illustration with a plotted location">
+          <div class="map-card map-card-back"></div>
+          <div class="map-card map-card-front">
+            <div class="map-label map-label-top">40° 42′ 46″ N</div>
+            <div class="map-label map-label-side">74° 00′ 21″ W</div>
+            <svg class="map-lines" viewBox="0 0 520 400" role="img" aria-label="Stylized street map">
+              <path d="M-20 77 104 93 180 54 254 77 332 29 534 54M-14 141l97 23 78-20 89 33 92-15 177 49M-14 231l103-15 62 27 92-13 77 31 82-22 108 40M-20 329l123-25 70 18 84-24 83 32 99-24 80 20M80-20l7 123 31 62-18 87 30 168M191-20l-15 75 21 87-15 85 21 89-9 104M301-20l31 49-15 110 21 72-23 96 22 111M412-20l-16 74 22 97-17 102 24 87-14 83" />
+              <path class="map-water" d="M-10 284c79-42 127-52 195-27s93 39 149 22 99-45 201-23" />
+              <path class="map-route" d="m86 306 42-81 77-29 58-65 92-21 51-67" />
+            </svg>
+            <div class="map-pin"><span></span></div>
+            <div class="map-chip"><span class="chip-pulse"></span> Point detected</div>
+            <div class="map-coordinates"><span>LAT / LNG</span><strong>40.7128, −74.0060</strong></div>
+            <div class="map-scale"><span></span><span>2 km</span></div>
+          </div>
+          <div class="float-tag"><span class="file-icon">{ }</span><span><b>GeoJSON</b><small>Ready to export</small></span><span class="tag-check">✓</span></div>
+          <div class="hero-orbit orbit-one"></div>
+          <div class="hero-orbit orbit-two"></div>
+        </div>
+      </section>
+
+      <section id="converter" class="converter-section">
+        <div class="shell">
+          <div class="section-heading converter-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-number">01</span> FIRST TOOL</div>
+              <h2>CSV to GeoJSON</h2>
+              <p>Turn rows with latitude and longitude into features you can use in GIS tools, maps, and apps.</p>
+            </div>
+            <button class="text-button" id="sample-button" type="button">Try a sample file <span aria-hidden="true">→</span></button>
+          </div>
+
+          <div class="converter-card">
+            <div class="converter-main">
+              <div class="converter-topline">
+                <div class="step-title"><span class="step-badge">1</span><span>Choose a CSV file</span></div>
+                <span class="format-pill">.CSV <span>→</span> .GEOJSON</span>
+              </div>
+              <label class="dropzone" id="dropzone" for="file-input">
+                <input id="file-input" type="file" accept=".csv,text/csv" />
+                <span class="upload-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4.5 15.5v3A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+                <strong id="file-title">Drop your CSV here</strong>
+                <span id="file-subtitle">or <span class="browse-link">browse files</span> from your device</span>
+                <span class="file-limit">CSV files up to 10 MB</span>
+              </label>
+
+              <div class="or-divider"><span>OR</span></div>
+              <div class="sample-preview">
+                <div class="sample-heading"><span class="step-badge step-badge-muted">↳</span><span>See the expected format</span><span class="sample-status" id="sample-status">Example</span></div>
+                <div class="table-scroll">
+                  <table>
+                    <thead><tr><th>name</th><th>latitude</th><th>longitude</th><th>category</th></tr></thead>
+                    <tbody id="sample-rows">
+                      <tr><td>Central Park</td><td>40.7829</td><td>-73.9654</td><td>Park</td></tr>
+                      <tr><td>Times Square</td><td>40.7580</td><td>-73.9855</td><td>Landmark</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <aside class="converter-side">
+              <div class="step-title"><span class="step-badge">2</span><span>Check your columns</span></div>
+              <p class="side-help">We’ll detect latitude and longitude columns automatically. You can change them after choosing a file.</p>
+              <div class="select-field"><label for="lat-column">Latitude</label><select id="lat-column" disabled><option>Waiting for a file</option></select></div>
+              <div class="select-field"><label for="lng-column">Longitude</label><select id="lng-column" disabled><option>Waiting for a file</option></select></div>
+              <div class="conversion-summary" id="conversion-summary" aria-live="polite">
+                <span class="summary-mark">◎</span><span>Upload a CSV to see a preview of your data.</span>
+              </div>
+              <button class="button button-convert" id="convert-button" type="button" disabled>Convert to GeoJSON <span aria-hidden="true">→</span></button>
+              <p class="privacy-note"><span aria-hidden="true">◈</span> Your file never leaves this device.</p>
+            </aside>
+          </div>
+          <div class="converter-feedback" id="feedback" role="status" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="how-section shell">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-number">02</span> BUILT FOR REAL WORK</div>
+            <h2>Useful by design.</h2>
+          </div>
+          <p class="heading-aside">Location data shouldn't need a complicated workflow. GeoSuite keeps the small jobs simple.</p>
+        </div>
+        <div class="benefit-grid" id="tools">
+          <article class="benefit-card">
+            <span class="benefit-icon icon-green"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 19 6v5.3c0 4.7-3.1 7.8-7 9.2-3.9-1.4-7-4.5-7-9.2V6l7-2.5Z" stroke="currentColor" stroke-width="1.5"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Private by default</h3>
+            <p>Your CSV is read locally. It isn’t sent to a server or stored in an account.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="benefit-icon icon-blue"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7.5h16M4 12h16M4 16.5h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="18" cy="16.5" r="2" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            <h3>Keep your attributes</h3>
+            <p>Names, categories, and other columns are preserved as GeoJSON properties.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="benefit-icon icon-violet"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4.5h8l4 4v11H6v-15Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 4.5v4h4M9 13h6M9 16h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+            <h3>Ready to use</h3>
+            <p>Download a standard GeoJSON FeatureCollection for your mapping workflow.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="next-section">
+        <div class="shell next-inner">
+          <div class="next-icon" aria-hidden="true">⌖</div>
+          <div><div class="eyebrow">A TOOLBOX THAT GROWS WITH YOU</div><h2>One less data chore.</h2><p>More focused tools for working with geospatial data are on the way.</p></div>
+          <a class="button button-light" href="#converter">Start with CSV <span aria-hidden="true">↑</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer shell">
+      <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3.5 27 9.75v12.5L16 28.5 5 22.25V9.75L16 3.5Z" stroke="currentColor" stroke-width="1.6"/><path d="m5.5 10 10.5 6 10.5-6M16 16v12" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/></svg></span><span class="brand-name">geo<span>suite</span></span></a>
+      <p>Tools for a world of coordinates.</p>
+      <span class="footer-copyright">© 2026 GeoSuite</span>
+    </footer>
+  </body>
+</html>
